@@ -40,7 +40,11 @@ Chrome 157 on a Mac Studio generated every response below. GPU compute dispatche
 | What is 2+2? | 2 | 4 in a reply that reached the token limit | 2 + 2 = 4 |
 | Reply with exactly one word: mango | `Mango.\n` | `Mango.` | `mango` |
 
-SmolLM2 produced identical WebGPU and WASM token IDs for all five prompts. Gemma and Liquid require `GatherBlockQuantized`, which the pinned WASM runtime lacks. Physical iPhone Safari and native desktop Safari are unverified. The checkpoints and serving configuration of [Ojas’s demo](https://letstalk.fluxionlabs.org/) were unverified, so differences with that site cannot isolate an effect of WebGPU.
+SmolLM2 produced identical WebGPU and WASM token IDs for all five prompts. Gemma and Liquid require `GatherBlockQuantized`, which the pinned WASM runtime lacks.
+
+A separate Mac Studio test used Transformers.js 4.3.2 with native ONNX Runtime Node 1.30.0 on the CPU. It used the same pinned ONNX files, rendered prompts, and greedy decoding settings. The generated token IDs matched Chrome WebGPU for all 15 model and prompt combinations, including both Gemma errors in the table.
+
+Physical iPhone Safari and native desktop Safari are unverified.
 
 ## Deploy
 
