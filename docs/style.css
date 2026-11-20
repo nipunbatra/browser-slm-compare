@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light;
+  --ink: #182723;
+  --subtle: #4b5e55;
+  --light: #f2f5ef;
+  --paper: #fcfdf9;
+  --line: #cdd8cd;
+  --accent: #175b46;
+  --tint: #e3efe6;
+  --warn: #8b3d2c;
+  font: 100%/1.5 "Avenir Next", Avenir, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--light); }
+main { width: min(74rem, calc(100% - 5rem)); margin: 0 auto; padding: 4rem 0 3rem; }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: clamp(2.6rem, 6vw, 5rem); line-height: 0.96; letter-spacing: -0.06em; }
+h2 { font-size: 1.45rem; letter-spacing: -0.035em; }
+h3 { font-size: 1.1rem; letter-spacing: -0.025em; }
+a { color: var(--accent); text-underline-offset: 0.16em; }
+button, textarea, select { font: inherit; }
+button, select { min-height: 2.65rem; color: inherit; }
+button { border: 1px solid var(--line); border-radius: 0.5rem; background: var(--paper); padding: 0.45rem 0.8rem; cursor: pointer; font-weight: 600; }
+button:not(:disabled):hover { background: var(--tint); }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:disabled { opacity: 0.48; cursor: default; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+.intro { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; align-items: end; padding: 0 0 2.5rem; }
+.intro p { max-width: 33ch; color: var(--subtle); font-size: 1.075rem; }
+form { padding: 1.4rem; background: var(--paper); border: 1px solid var(--line); border-radius: 0.85rem; }
+fieldset { min-inline-size: 0; margin: 0; border: 0; padding: 0; }
+.controls { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(11rem, 1fr); gap: 1.1rem 1.5rem; }
+label, legend { display: block; margin-bottom: 0.35rem; font-weight: 650; }
+textarea, select { display: block; width: 100%; padding: 0.55rem 0.75rem; background: var(--paper); border: 1px solid #9eafa3; border-radius: 0.5rem; }
+textarea { min-height: 4.5rem; resize: vertical; color: var(--ink); }
+.examples { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-top: 0.6rem; }
+.examples button { padding: 0.25rem 0.6rem; min-height: 2.15rem; font-size: 0.85rem; }
+.hint, .run-info, #run-status, .method p { font-size: 0.88rem; color: var(--subtle); }
+.hint { margin-top: 0.5rem; min-height: 2.65rem; }
+#model-options { display: flex; flex-wrap: wrap; gap: 0.15rem 0.9rem; }
+#model-options label { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; min-height: 2.45rem; font-size: 0.9rem; font-weight: 500; }
+input[type="checkbox"] { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; margin: 0; }
+.run-actions, .results-actions { display: flex; gap: 0.55rem; flex-wrap: wrap; align-items: end; }
+.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.primary:not(:disabled):hover { background: #0e4735; }
+.run-info { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: 0.65rem; }
+.run-info p + p { margin-top: 0.18rem; }
+
+.comparison { margin-top: 2rem; }
+.results-header { display: flex; justify-content: space-between; align-items: end; gap: 0.7rem; margin-bottom: 0.9rem; }
+.view-controls { display: grid; grid-template-columns: max-content minmax(0, 30rem); gap: 0.65rem; align-items: center; margin-bottom: 0.75rem; }
+.view-controls label { margin: 0; }
+.shown-prompt { margin: 0 0 0.75rem; color: var(--subtle); overflow-wrap: anywhere; }
+.model-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line); background: var(--line); border-radius: 0.85rem; overflow: hidden; }
+.model { display: grid; grid-template-rows: subgrid; grid-row: span 2; background: var(--paper); }
+.model > div { padding: 1rem 1.15rem; min-width: 0; }
+.model-head { border-bottom: 1px solid var(--line); }
+.model-head a, .model-head code { font-size: 0.8rem; overflow-wrap: anywhere; }
+.model-head a.checkpoint, .model-head code { display: block; }
+.model-head p { color: var(--subtle); font-size: 0.8rem; margin-top: 0.35rem; }
+.model-body { min-height: 8.5rem; }
+.model-body > p { color: var(--subtle); }
+.reply + .reply { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--line); }
+.reply h4 { margin: 0 0 0.25rem; font-size: 0.8rem; color: var(--accent); }
+.reply p { overflow-wrap: anywhere; }
+.reply .answer { white-space: pre-wrap; }
+.reply .error { color: var(--warn); }
+.reply .meta { color: var(--subtle); font-size: 0.8rem; margin-top: 0.45rem; }
+.reply details { margin-top: 0.55rem; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--light); padding: 0.55rem; margin: 0.45rem 0 0; font-size: 0.8rem; }
+summary { cursor: pointer; font-weight: 600; }
+.method { margin: 1.4rem 0 0; max-width: 75ch; }
+.method p { margin: 0.45rem 0; }
+
+@media (max-width: 48rem) {
+  main { width: calc(100% - 2rem); padding-top: 2rem; }
+  .intro { grid-template-columns: 1fr; gap: 1rem; padding-bottom: 1.5rem; }
+  .intro p { max-width: 44ch; }
+  .controls { grid-template-columns: 1fr; gap: 1rem; }
+  form { padding: 1rem; }
+  .hint { min-height: auto; }
+  .model-grid { grid-template-columns: 1fr; }
+  .model { display: block; }
+  .model-body { min-height: 0; }
+  .model > div { padding: 0.8rem 0.95rem; }
+  .view-controls { grid-template-columns: 1fr; gap: 0.3rem; }
+  .results-header { flex-wrap: wrap; }
+}

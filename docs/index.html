@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Compare three small language models running locally in your browser.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://cdn.jsdelivr.net blob: 'wasm-unsafe-eval'; style-src 'self'; connect-src 'self' https://cdn.jsdelivr.net https://huggingface.co https://*.huggingface.co https://*.hf.co; worker-src 'self' blob:; img-src data:; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <title>Browser model comparison</title>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main>
+    <header class="intro">
+      <h1>Browser model<br> comparison</h1>
+      <p>Give three small language models the same prompt and compare their replies. Inference stays on this device. Each reply starts with fresh context.</p>
+    </header>
+    <form id="run-form" autocomplete="off">
+      <fieldset class="controls" id="run-controls">
+        <div class="question">
+          <label for="prompt">Shared prompt</label>
+          <textarea id="prompt" name="prompt" rows="2" maxlength="2000" spellcheck="false" autocapitalize="off" autocorrect="off" required>Who is the capital of India?</textarea>
+          <div class="examples" id="examples" aria-label="Example prompts"></div>
+        </div>
+        <div class="settings">
+          <label for="backend">Backend</label>
+          <select id="backend" name="backend">
+            <option value="webgpu">WebGPU</option>
+            <option value="wasm">WASM (CPU) · SmolLM2 only</option>
+            <option value="both">WebGPU + WASM</option>
+          </select>
+          <p class="hint" id="hardware"></p>
+        </div>
+        <fieldset class="model-picker">
+          <legend>Models to run</legend>
+          <div id="model-options"></div>
+        </fieldset>
+        <div class="run-actions">
+          <button class="primary" type="submit">Run prompt</button>
+          <button id="run-checks" type="button">Run 5 checks</button>
+        </div>
+      </fieldset>
+      <div class="run-info">
+        <p id="downloads"></p>
+        <p>Models run one at a time. Your browser downloads public files from Hugging Face and the runtime from jsDelivr. Prompt text stays in this tab unless you export it.</p>
+      </div>
+    </form>
+    <section class="comparison" aria-labelledby="results-heading">
+      <header class="results-header">
+        <div>
+          <h2 id="results-heading">Model responses</h2>
+          <p id="run-status" role="status">Ready to run.</p>
+        </div>
+        <div class="results-actions">
+          <button id="stop" type="button" hidden>Stop run</button>
+          <button id="export" type="button" disabled>Export JSON</button>
+        </div>
+      </header>
+      <div class="view-controls" id="view-controls" hidden>
+        <label for="view-prompt">View response for</label>
+        <select id="view-prompt"></select>
+      </div>
+      <p id="shown-prompt" class="shown-prompt" hidden></p>
+      <div class="model-grid" id="results"></div>
+    </section>
+    <details class="method">
+      <summary>How the comparison works</summary>
+      <p>Each run uses the pinned checkpoint’s bundled chat template and one user message. Generation is greedy, with a limit of 64 new tokens. The export includes the rendered prompt, generated token IDs and raw decoded text with special tokens.</p>
+      <p>A WebGPU result reports whether the inference worker observed GPU compute dispatches. ONNX Runtime’s WebGPU provider can also place some operators on the CPU. WASM is a separate, opt-in CPU mode using the same files for SmolLM2. The pinned WASM runtime lacks an operator needed by Gemma and Liquid. WebGPU support depends on browser, hardware and memory. Physical iPhone Safari has yet to be verified.</p>
+      <p id="runtime"></p>
+      <p><a href="https://github.com/nipunbatra/browser-slm-compare">Source code and run instructions</a></p>
+    </details>
+  </main>
+</body>
+</html>
